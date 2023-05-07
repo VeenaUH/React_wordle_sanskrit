@@ -173,7 +173,8 @@ function App() {
     if (isGameWon) {
       const winMessage =
         WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)]
-      const delayMs = REVEAL_TIME_MS * solution.length
+      //const delayMs = REVEAL_TIME_MS * solution.length
+      const delayMs = REVEAL_TIME_MS * unicodeLength(solution)
 
       showSuccessAlert(winMessage, {
         delayMs,
@@ -184,13 +185,15 @@ function App() {
     if (isGameLost) {
       setTimeout(() => {
         setIsStatsModalOpen(true)
-      }, (solution.length + 1) * REVEAL_TIME_MS)
+        //}, (solution.length + 1) * REVEAL_TIME_MS)
+      }, (unicodeLength(solution) + 1) * REVEAL_TIME_MS)
     }
   }, [isGameWon, isGameLost, showSuccessAlert])
 
   const onChar = (value: string) => {
     if (
-      unicodeLength(`${currentGuess}${value}`) <= solution.length &&
+      //unicodeLength(`${currentGuess}${value}`) <= solution.length &&
+      unicodeLength(`${currentGuess}${value}`) <= unicodeLength(solution) &&
       guesses.length < MAX_CHALLENGES &&
       !isGameWon
     ) {
@@ -209,7 +212,8 @@ function App() {
       return
     }
 
-    if (!(unicodeLength(currentGuess) === solution.length)) {
+    //if (!(unicodeLength(currentGuess) === solution.length)) {
+    if (!(unicodeLength(currentGuess) === unicodeLength(solution))) {
       setCurrentRowClass('jiggle')
       return showErrorAlert(NOT_ENOUGH_LETTERS_MESSAGE, {
         onClose: clearCurrentRowClass,
@@ -239,12 +243,13 @@ function App() {
     // chars have been revealed
     setTimeout(() => {
       setIsRevealing(false)
-    }, REVEAL_TIME_MS * solution.length)
-
+      //}, REVEAL_TIME_MS * solution.length)
+    }, REVEAL_TIME_MS * unicodeLength(solution))
     const winningWord = isWinningWord(currentGuess)
 
     if (
-      unicodeLength(currentGuess) === solution.length &&
+      //unicodeLength(currentGuess) === solution.length &&
+      unicodeLength(currentGuess) === unicodeLength(solution) &&
       guesses.length < MAX_CHALLENGES &&
       !isGameWon
     ) {
@@ -265,7 +270,8 @@ function App() {
         setIsGameLost(true)
         showErrorAlert(CORRECT_WORD_MESSAGE(solution), {
           persist: true,
-          delayMs: REVEAL_TIME_MS * solution.length + 1,
+          //delayMs: REVEAL_TIME_MS * solution.length + 1,
+          delayMs: REVEAL_TIME_MS * unicodeLength(solution) + 1,
         })
       }
     }
@@ -307,6 +313,10 @@ function App() {
             solution={solution}
             guesses={guesses}
             isRevealing={isRevealing}
+            consonant={''}
+            isConsonant={false}
+            vowel={''}
+            isVowel={false}
           />
           <InfoModal
             isOpen={isInfoModalOpen}

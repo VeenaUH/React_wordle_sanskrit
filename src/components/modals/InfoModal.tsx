@@ -8,26 +8,24 @@ type Props = {
 
 export const InfoModal = ({ isOpen, handleClose }: Props) => {
   return (
-    <BaseModal title="How to play" isOpen={isOpen} handleClose={handleClose}>
+    <BaseModal title="कथं क्रीडनीयम्" isOpen={isOpen} handleClose={handleClose}>
       <p className="text-sm text-gray-500 dark:text-gray-300">
-        Guess the word in 6 tries. After each guess, the color of the tiles will
-        change to show how close your guess was to the word.
+        षट्सु प्रयत्नेषु पदस्य ऊहां कुर्वन्तु । 
+        प्रत्येकम् ऊहायाः अनन्तरं मञ्जूषानां वर्णाः परिवर्तन्ते, , ऊहितं पदं समीचीनस्य उत्तरस्य कियत्समीपम् आसीत् इति दर्शयन्ति च ।
       </p>
 
-      <div className="mb-1 mt-4 flex justify-center">
+      <div className="mb-2 mt-2 flex justify-center">
         <Cell
           isRevealing={true}
           isCompleted={true}
-          value="W"
+          value="क"
           status="correct"
         />
-        <Cell value="E" isCompleted={true} />
-        <Cell value="A" isCompleted={true} />
-        <Cell value="R" isCompleted={true} />
-        <Cell value="Y" isCompleted={true} />
+        <Cell value="म" isCompleted={true} />
+        <Cell value="लं" isCompleted={true} />
       </div>
       <p className="text-sm text-gray-500 dark:text-gray-300">
-        The letter W is in the word and in the correct spot.
+        क इत्यत्र व्यञ्जनं तदेव । किन्तु स्वरः अन्यः ।
       </p>
 
       <div className="mb-1 mt-4 flex justify-center">
@@ -70,3 +68,4 @@ export const InfoModal = ({ isOpen, handleClose }: Props) => {
     </BaseModal>
   )
 }
+
