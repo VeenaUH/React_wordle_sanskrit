@@ -11,20 +11,28 @@ import queryString from 'query-string'
 import { ENABLE_ARCHIVED_GAMES } from '../constants/settings'
 import { NOT_CONTAINED_MESSAGE, WRONG_SPOT_MESSAGE } from '../constants/strings'
 import { VALID_GUESSES } from '../constants/validGuesses'
-import { WORDS } from '../constants/wordlist'
+import { getWordsByLength } from '../constants/wordlist'
 import { getToday } from './dateutils'
 import { getGuessStatuses } from './statuses'
 
+
+//let wordLength_inString : any = localStorage.getItem("wordLength")
+//const wordLength = parseInt(wordLength_inString)
 // 1 January 2022 Game Epoch
 export const firstGameDate = new Date(2022, 0)
 export const periodInDays = 1
+let WORDS : string[]
 
+const wordLength = parseInt(sessionStorage.getItem('wordLength') || '4');
+//-----
+//-----
+WORDS = getWordsByLength(wordLength);
 export const isWordInWordList = (word: string) => {
   return (
     WORDS.includes(localeAwareLowerCase(word)) ||
     VALID_GUESSES.includes(localeAwareLowerCase(word))
   )
-}
+}      
 
 export const isWinningWord = (word: string) => {
   return solution === word
@@ -52,6 +60,7 @@ export const findFirstUnusedReveal = (word: string, guesses: string[]) => {
       return WRONG_SPOT_MESSAGE(splitGuess[i], i + 1)
     }
   }
+
 
   // check for the first unused letter, taking duplicate letters
   // into account - see issue #198
