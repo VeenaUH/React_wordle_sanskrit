@@ -1,5 +1,6 @@
+//import { unicode_phoneme_split } from '@/components/keyboard/Keyboard'
 import { unicodeSplit } from './words'
-
+import { unicode_phoneme_split } from '../components/keyboard/Keyboard'
 export type CharStatus = 'absent' | 'present' | 'correct'
 
 export const getStatuses = (
@@ -7,25 +8,56 @@ export const getStatuses = (
   guesses: string[]
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
-  const splitSolution = unicodeSplit(solution)
+  const splitSolution = unicode_phoneme_split(solution)
+
+  // const splitSolution : string[] =[]
+  // unicodeSplit(solution).forEach((letter, i) =>{
+  //   if(letter.includes("्")){
+  //     splitSolution.push(letter)
+  //   }
+  //   else {
+  //     splitSolution=splitSolution.concat(lookupElements(letter))
+  //   }
+  // })
+// const splitSolution: string[] = [];
+
+// unicodeSplit(solution).forEach((letter, i) => {
+//   if (letter.includes("्")) {
+//     splitSolution.push(letter);
+//   } else {
+//     splitSolution.push(...unicode_phoneme_split(letter));
+//   }
+// });
+
+
+
+  console.log('guesses=',guesses)
+  console.log('solution=',solution)
+  console.log('splitsolution=',splitSolution)
+
 
   guesses.forEach((word) => {
-    unicodeSplit(word).forEach((letter, i) => {
-      if (!splitSolution.includes(letter)) {
-        // make status absent
-        return (charObj[letter] = 'absent')
-      }
-
-      if (letter === splitSolution[i]) {
-        //make status correct
-        return (charObj[letter] = 'correct')
-      }
-
-      if (charObj[letter] !== 'correct') {
-        //make status present
-        return (charObj[letter] = 'present')
-      }
-    })
+    unicode_phoneme_split(word).forEach((letter, i) => {
+      console.log('guesswordLetter=',letter)
+      // let phonemes = lookupElements(letter)
+      // phonemes.forEach((phoneme) => {
+        if (!splitSolution.includes(letter)) {
+          // make status absent
+          console.log("doesnt include")
+          return (charObj[letter] = 'absent')
+        }
+  
+        if (letter === splitSolution[i]) {
+          //make status correct
+          return (charObj[letter] = 'correct')
+        }
+  
+        if (charObj[letter] !== 'correct') {
+          //make status present
+          return (charObj[letter] = 'present')
+        }
+      //})
+    });
   })
 
   return charObj

@@ -2,10 +2,12 @@ import { useEffect } from 'react'
 
 import { DELETE_TEXT, ENTER_TEXT } from '../../constants/strings'
 import { getStatuses } from '../../lib/statuses'
-import { localeAwareUpperCase } from '../../lib/words'
+//import { localeAwareUpperCase } from '../../lib/words'
 import { Key } from './Key'
+import { unicodeSplit } from '../../lib/words'
+import { exit } from 'process'
 
-const lookupTable: {
+export const lookupTable: {
   [key: string]: {
     [key: string]: string;
   };
@@ -51,6 +53,69 @@ const lookupTable: {
 
 // Example usage
 const word = lookupTable["क्"]["अ"]; // Returns "ka"
+//Added by veena, to split a letter to its constituent consonant and vowel by looking up the table
+export function unicode_phoneme_split(input: string): string[] {
+  const result: string[] = [];
+  console.log("from called function, the word=",input)
+  const splitWord = unicodeSplit(input);
+  splitWord.forEach(letter => {
+    if (letter.includes("्")) {
+      result.push(letter)
+    }
+    else{
+      let suffix : string = "";
+      if (letter.includes("ं")){
+        suffix = "ं"
+        console.log("has=",suffix)
+        letter = letter.replace(/ं/g, "")
+      }
+      if (letter.includes("ः")){
+        suffix = "ः"
+        console.log("has=",suffix)
+        letter = letter.replace(/ः/g, "")
+      }
+      if (letter>="अ" && letter<="औ"){
+        result.push(letter)
+      }
+      else{
+      for (const rowKey in lookupTable) {
+        const row = lookupTable[rowKey];
+    
+        for (const columnKey in row) {
+          if (row[columnKey] === letter) {
+            result.push(rowKey);
+            result.push(columnKey);
+            break;
+            //return result;
+          }
+        }
+      }
+      }
+      console.log("2.has=",suffix)
+      if (suffix!="") result.push(suffix);
+    }      
+  });
+  console.log('returning from called funciton==', result);
+  return result;
+}
+
+// function unicode_phoneme_split(input: string): string[] {
+//   const result: string[] = [];
+//     console.log(input)
+//   for (const rowKey in lookupTable) {
+//     const row = lookupTable[rowKey];
+
+//     for (const columnKey in row) {
+//       if (row[columnKey] === input) {
+//         result.push(rowKey);
+//         result.push(columnKey);
+//         return result;
+//       }
+//     }
+//   }
+
+//   return result;
+// }
 
 
 type Props = {
@@ -97,9 +162,10 @@ export const Keyboard = ({
         if (isConsonant){
           onDelete()
           value = lookupTable[consonant][vowel]          
-          isConsonant=false
+          //isConsonant=false
         }
         onChar(value)
+        isConsonant=false
       }
       //onChar(value)
     }

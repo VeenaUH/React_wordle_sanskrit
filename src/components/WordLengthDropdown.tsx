@@ -1,4 +1,3 @@
-//import React, { useState, useEffect } from 'react';
 
 export const wordLengths = [
   { value: 3 },
@@ -8,7 +7,7 @@ export const wordLengths = [
 // //check if session storage is empty
 // export const wordLength = sessionStorage.getItem('wordLength');
 
-export const wordLength = parseInt(sessionStorage.getItem('wordLength') || '4');
+export const wordLength = parseInt(localStorage.getItem('wordLength') || '4');
 
 function WordLengthDropdown({
   selectedWordLength,
@@ -24,9 +23,11 @@ function WordLengthDropdown({
     }
     //wordLength = length;
     //console.log(wordLength)
-
-    sessionStorage.setItem('wordLength', length.toString());
+    const isatleastOneRowCompleted = localStorage.getItem('atleastOneRowCompleted')
+    if (!isatleastOneRowCompleted){
+    localStorage.setItem('wordLength', length.toString());
     window.location.reload()
+    }
   };
 
   return (

@@ -15,7 +15,6 @@ import { MigrateStatsModal } from './components/modals/MigrateStatsModal'
 import { SettingsModal } from './components/modals/SettingsModal'
 import { StatsModal } from './components/modals/StatsModal'
 import { Navbar } from './components/navbar/Navbar'
-//import WordLengthDropdown from "./components/WordLengthDropdown";
 import {
   DATE_LOCALE,
   DISCOURAGE_INAPP_BROWSERS,
@@ -74,7 +73,7 @@ function App() {
   const [currentRowClass, setCurrentRowClass] = useState('')
   const [isGameLost, setIsGameLost] = useState(false)
   const [selectedWordLength, setSelectedWordLength] = useState(
-    parseInt(sessionStorage.getItem('wordLength') || '4')
+    parseInt(localStorage.getItem('wordLength') || '4')
   )
 
   const [isDarkMode, setIsDarkMode] = useState(
@@ -120,6 +119,7 @@ function App() {
     if (!loadGameStateFromLocalStorage(true)) {
       setTimeout(() => {
         setIsInfoModalOpen(true)
+        localStorage.removeItem('atleastOneRowCompleted')
       }, WELCOME_INFO_MODAL_MS)
     }
   })

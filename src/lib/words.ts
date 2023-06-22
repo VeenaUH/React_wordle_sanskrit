@@ -23,7 +23,7 @@ export const firstGameDate = new Date(2022, 0)
 export const periodInDays = 1
 let WORDS : string[]
 
-const wordLength = parseInt(sessionStorage.getItem('wordLength') || '4');
+const wordLength = parseInt(localStorage.getItem('wordLength') || '4');
 //-----
 //-----
 WORDS = getWordsByLength(wordLength);

@@ -9,7 +9,7 @@ describe('wordlist', () => {
   test('words are unique', () => {
     let WORDS : string[]
     //const [selectedWordLength, setselectedWordlength] = useState(4);
-    const wordLength = parseInt(sessionStorage.getItem('wordLength') || '4');
+    const wordLength = parseInt(localStorage.getItem('wordLength') || '4');
     
     WORDS = getWordsByLength(wordLength);
     const uniqueWords = Array.from(new Set(WORDS))

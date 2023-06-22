@@ -11,6 +11,7 @@ type Props = {
 export const CompletedRow = ({ solution, guess, isRevealing }: Props) => {
   const statuses = getGuessStatuses(solution, guess)
   const splitGuess = unicodeSplit(guess)
+  localStorage.setItem('atleastOneRowCompleted', 'true')
 
   return (
     <div className="mb-1 flex justify-center">
