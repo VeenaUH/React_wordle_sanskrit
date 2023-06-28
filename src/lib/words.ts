@@ -78,8 +78,48 @@ export const findFirstUnusedReveal = (word: string, guesses: string[]) => {
   return false
 }
 
-export const unicodeSplit = (word: string) => {
+export const unicodeSplit1 = (word: string) => {
   return new GraphemeSplitter().splitGraphemes(word)
+}
+
+export const unicodeSplit = (word: string) => {
+  const output: string[] = [];
+  const input = unicodeSplit1(word)
+  for (let i = 0; i < input.length; i++) {
+    const currentLetter = input[i];
+    
+    if (currentLetter.includes("्")) {
+      const nextLetter = input[i + 1];
+      
+      if (nextLetter) {
+        const mergedLetter = currentLetter + nextLetter;
+        output.push(mergedLetter);
+        i++; // Skip the next letter since it's already merged
+      } else {
+        output.push(currentLetter); // Add the current letter as is
+      }
+    } else {
+      output.push(currentLetter); // Add non-virama letters as is
+    }
+  }  
+  return output;
+}
+
+export const unicodeSplit2 = (word : string) => {
+  const output : string[] = [];
+  const input = unicodeSplit1(word)
+  let carryLetter = "";
+  for(let i=0; i< input.length; i++){
+    let currentLetter = input[i];
+    if (currentLetter.includes("्")) {
+      carryLetter = carryLetter+currentLetter
+      continue;
+    }
+    currentLetter=carryLetter+currentLetter
+    carryLetter=""
+    output.push(currentLetter)
+  }
+  return output;
 }
 
 export const unicodeLength = (word: string) => {

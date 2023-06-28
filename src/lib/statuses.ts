@@ -8,55 +8,42 @@ export const getStatuses = (
   guesses: string[]
 ): { [key: string]: CharStatus } => {
   const charObj: { [key: string]: CharStatus } = {}
-  const splitSolution = unicode_phoneme_split(solution)
-
-  // const splitSolution : string[] =[]
-  // unicodeSplit(solution).forEach((letter, i) =>{
-  //   if(letter.includes("्")){
-  //     splitSolution.push(letter)
-  //   }
-  //   else {
-  //     splitSolution=splitSolution.concat(lookupElements(letter))
-  //   }
-  // })
-// const splitSolution: string[] = [];
-
-// unicodeSplit(solution).forEach((letter, i) => {
-//   if (letter.includes("्")) {
-//     splitSolution.push(letter);
-//   } else {
-//     splitSolution.push(...unicode_phoneme_split(letter));
-//   }
-// });
+  //const splitSolution = unicode_phoneme_split(solution)
+  const splitSolution = unicodeSplit(solution)
+  const splitSolution_phoneme = unicode_phoneme_split(solution)
 
 
 
-  console.log('guesses=',guesses)
-  console.log('solution=',solution)
-  console.log('splitsolution=',splitSolution)
+  // console.log('guesses=',guesses)
+  // console.log('solution=',solution)
+  // console.log('splitsolution=',splitSolution)
 
 
   guesses.forEach((word) => {
-    unicode_phoneme_split(word).forEach((letter, i) => {
-      console.log('guesswordLetter=',letter)
-      // let phonemes = lookupElements(letter)
-      // phonemes.forEach((phoneme) => {
-        if (!splitSolution.includes(letter)) {
+    //unicode_phoneme_split(word).forEach((letter, i) => {
+      unicodeSplit(word).forEach((letter,i) => {   
+        unicode_phoneme_split(letter).forEach((phoneme, j) => {
+        console.log('guesswordLetter=',letter)
+        console.log("phoneme=",phoneme)
+        if (!splitSolution_phoneme.includes(phoneme)) {
           // make status absent
+          console.log(splitSolution_phoneme)
           console.log("doesnt include")
-          return (charObj[letter] = 'absent')
+          return (charObj[phoneme] = 'absent')
         }
-  
-        if (letter === splitSolution[i]) {
+        const split_solution_letter = unicode_phoneme_split(splitSolution[i])
+        console.log("split solution letter =",split_solution_letter)
+        if (phoneme === split_solution_letter[j]) {
+          console.log("split_solution_letter[j]=",split_solution_letter[j])
           //make status correct
-          return (charObj[letter] = 'correct')
+          return (charObj[phoneme] = 'correct')
         }
   
         if (charObj[letter] !== 'correct') {
           //make status present
-          return (charObj[letter] = 'present')
+          return (charObj[phoneme] = 'present')
         }
-      //})
+       })
     });
   })
 

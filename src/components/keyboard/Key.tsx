@@ -21,7 +21,7 @@ export const Key = ({
   width = 40,
   value,
   onClick,
-  isRevealing,
+  isRevealing
 }: Props) => {
   const keyDelayMs = REVEAL_TIME_MS * solution.length
   const isHighContrast = getStoredIsHighContrastMode()
