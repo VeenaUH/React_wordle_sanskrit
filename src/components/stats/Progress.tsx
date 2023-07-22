@@ -13,6 +13,9 @@ export const Progress = ({
   label,
   isCurrentDayStatRow,
 }: Props) => {
+  if (isCurrentDayStatRow){
+    localStorage.removeItem('atleastOneRowCompleted')
+  }
   const currentRowClass = classNames(
     'text-xs font-medium text-blue-100 text-center p-0.5',
     { 'bg-blue-600': isCurrentDayStatRow, 'bg-gray-600': !isCurrentDayStatRow }

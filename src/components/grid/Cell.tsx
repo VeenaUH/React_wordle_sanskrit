@@ -16,7 +16,7 @@ export const Cell = ({
   value,
   status,
   isRevealing,
-  isCompleted,
+  isCompleted,      
   position = 0,
 }: Props) => {
   const isFilled = value && !isCompleted

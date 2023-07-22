@@ -12,29 +12,16 @@ export const getStatuses = (
   const splitSolution = unicodeSplit(solution)
   const splitSolution_phoneme = unicode_phoneme_split(solution)
 
-
-
-  // console.log('guesses=',guesses)
-  // console.log('solution=',solution)
-  // console.log('splitsolution=',splitSolution)
-
-
   guesses.forEach((word) => {
     //unicode_phoneme_split(word).forEach((letter, i) => {
       unicodeSplit(word).forEach((letter,i) => {   
         unicode_phoneme_split(letter).forEach((phoneme, j) => {
-        console.log('guesswordLetter=',letter)
-        console.log("phoneme=",phoneme)
         if (!splitSolution_phoneme.includes(phoneme)) {
           // make status absent
-          console.log(splitSolution_phoneme)
-          console.log("doesnt include")
           return (charObj[phoneme] = 'absent')
         }
         const split_solution_letter = unicode_phoneme_split(splitSolution[i])
-        console.log("split solution letter =",split_solution_letter)
         if (phoneme === split_solution_letter[j]) {
-          console.log("split_solution_letter[j]=",split_solution_letter[j])
           //make status correct
           return (charObj[phoneme] = 'correct')
         }

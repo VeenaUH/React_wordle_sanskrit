@@ -99,7 +99,6 @@ export const DatePickerModal = ({
                 >
                   <ChevronLeftIcon className="h-5 w-5 text-gray-600 dark:text-gray-300" />
                 </button>
-
                 <button
                   onClick={increaseMonth}
                   disabled={nextMonthButtonDisabled}

@@ -7,7 +7,7 @@ export const WORD_NOT_FOUND_MESSAGE = 'शब्दो न लब्धः'
 export const HARD_MODE_ALERT_MESSAGE =
   'Hard Mode can be enabled only at the start!'
 export const HARD_MODE_DESCRIPTION =
-  'अग्रिमासु ऊहासु प्रकाशिताः सङ्केताः उपयोक्तव्याः Any revealed hints must be used in subsequent guesses'
+  'अग्रिमासु ऊहासु प्रकाशिताः सङ्केताः उपयोक्तव्याः '
 export const HIGH_CONTRAST_MODE_DESCRIPTION = 'For improved color vision'
 export const CORRECT_WORD_MESSAGE = (solution: string) =>
   `अपेक्षितः शब्दः = ${solution}`
@@ -28,8 +28,8 @@ export const MIGRATE_DESCRIPTION_TEXT =
   'भवतां फलितांशान् नूतने उपकरणे प्रेषयितुम् अत्र नुदन्तु-'
 export const TOTAL_TRIES_TEXT = 'आहत्य प्रयत्नाः'
 export const SUCCESS_RATE_TEXT = 'यशः प्रमाणम्'
-export const CURRENT_STREAK_TEXT = 'Current streak'
-export const BEST_STREAK_TEXT = 'Best streak'
+export const CURRENT_STREAK_TEXT = 'प्रस्तुतः प्रयत्नः'
+export const BEST_STREAK_TEXT = 'अत्युत्तमः प्रयत्नः'
 export const DISCOURAGE_INAPP_BROWSER_TEXT =
   "You are using an embedded browser and may experience problems sharing or saving your results. We encourage you rather to use your device's default browser."
 
